@@ -2,5 +2,6 @@
 log/*.log
 tmp/**/*
 config/database.yml
+config/orbited.yml
 db/*.sqlite3
 rerun.txt
