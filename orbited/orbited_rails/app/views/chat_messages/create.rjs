@@ -1,0 +1,2 @@
+page['messages'].insert :bottom => "<div class='message'>#{Time.now.strftime("%I:%M%p")} - Sent: #{@message.content}</div>"
+page['chat_message_content'].clear

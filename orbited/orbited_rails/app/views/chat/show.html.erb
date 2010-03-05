@@ -1,0 +1,11 @@
+<% content_for :head do %>
+  <%= orbited_javascript %>
+  <%= stomp_connect('hello', :onerror => 'function(){alert("error!")}', :onclose => 'function(){alert("closed!")}', :onmessageframe => 'function(frame){alert("The server said " + frame.body);}') %>
+<% end %>
+<h1>Chat</h1>
+<div id="messages" style="height:300px;border:1px solid black;overflow:scroll;">
+</div>
+<% remote_form_for "chat_message", :url => { :controller => "chat_messages", :action => "create" } do |f| %>
+  <%= f.text_field 'content' %>
+  <%= f.submit "Send" %>
+<% end%>
