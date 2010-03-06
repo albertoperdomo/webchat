@@ -18,6 +18,9 @@ I've ended up using Apache + mod_proxy + passenger + orbited. This is my setup:
 * Stomp runs on standard port 61613
 * Orbited runs on port 8000
 * Rails running with passenger + proxy on port 80
+* The Orbited server and the rails app need to be exposed to the internet. The stomp server just listens to local connections from the Orbited server and/or the Rails app.
+The way it works is your browser (the client) opens a connection to the Orbited server and tells the Orbited server to open a local connection to the MQ server (in this case stomp). The function of the orbited server is to proxy the client to send/receive to the MQ server. Nothing more.
+
 
 This is how my /etc/orbited.cfg config file looks like:
 
