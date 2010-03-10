@@ -1,0 +1,24 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "/static/Orbited" %>
+  <script>TCPSocket = Orbited.TCPSocket</script>
+  <%= javascript_include_tag "/static/protocols/xmpp/xmpp" %>
+  <%= javascript_include_tag "chat" %>
+<% end %>
+<h1>Chat</h1>
+<div id="roaster">
+</div>
+
+<% remote_form_for "chat_contact", :url => { :controller => "chat_contacts", :action => "create" } do |f| %>
+  <h2>Add contact</h2>
+  <%= f.text_field 'jid' %>
+  <%= f.submit "Add contact" %>
+<% end%>
+
+<div id="new_message">
+  <h2>New message</h2>
+  <label for="message_to_jid">Recipient's JID<label>
+  <%= text_field_tag 'message_to_jid' %>
+  <label for="message_content">Message<label>
+  <%= text_field_tag 'message_content' %>
+  <%= button_to_function "Send message", "alert('send message!')" %>
+</div>
