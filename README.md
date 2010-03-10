@@ -51,6 +51,23 @@ Orbited provides a built-in stomp server (morbid). You can also install it separ
 There is a flag in the orbited configuration file to tell it start the built-in morbid server.
 Morbid is good enough for development and testing. For something more production-ready you should look at alternatives such as ActiveMQ, RabbitMQ, StompConnect, etc.
 
+XMPP/Jabber as alternative to Stomp
+-----------------------------------
+Using an XMPP can provide some features you might find useful such as presence (know if a user is online or not) etc. There are many XMPP serves our there ejabberd being a very popular and robust implementation written in Erlang.
+If you want to go ahead for XMPP (i recommend going for stomp first and then switch to XMPP for the sake of simplicity):
+* Install ejabberd: sudo aptitude install ejabberd
+* Configure ejabberd
+   * Set the admin user/s
+   * Set the domains e.g. localhost
+* Add the users you want to use for your demo
+   * Example: sudo ejabberdctl register user1 localhost user1
+   * Syntax: sudo ejabberdctl register <username> <domain> <password>
+* Restart the jabber server; sudo /etc/init.d/ejabberd restart
+* Adapt the orbited.cfg file to allow connections to the jabber server:
+
+    [access]
+    * -> localhost:5222
+
 Rails app with Orbited and Stomp
 --------------------------------
 You will find a sample rails app in this repo for test and evaluation purposes.
@@ -81,3 +98,5 @@ Links
 * [XMPP](http://xmpp.org/)
 * [Component diagrams](http://orbited.org/wiki/MorbidQ)
 * [Comet server comparison matrix](http://cometdaily.com/maturity.html)
+* [HTTP streaming/push (Comet) with Orbited](http://rrn.dk/http-streaming-push-comet-with-orbited)
+* [Setup and configure Ejabberd on Ubuntu 9.10](http://library.linode.com/real-time-messaging/xmpp-servers/install-ejabberd-ubuntu-9.10-karmic)
