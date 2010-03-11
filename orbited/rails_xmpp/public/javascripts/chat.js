@@ -68,7 +68,7 @@ function connectFailure() {
 /** Called when a message is received */
 function onMessage(jid, username, text) {
   // update the UI to reflect the message received
-  alert("Received message from " + username ":\n" + text);
+  alert("Received message from " + username + ":\n" + text);
 }
 
 /** Called when the user types a message to be sent */
