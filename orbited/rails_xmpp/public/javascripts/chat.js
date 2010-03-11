@@ -30,14 +30,27 @@ xmpp.onSocketConnect = function() {
 xmpp.connect('localhost', 5222);
 
 ////
+// helpers
+function prompt_login() {
+  var u = prompt("User name","user1");
+  if (u) {
+      var p = prompt("Password","user1");
+      if (p) {
+          xmpp.login(u, p, loginSuccess, loginFailure);
+      }
+  }
+}
+
+
+////
 // success / failure callbacks
 function registerSuccess() {
   alert("Welcome!");
 }
 function registerFailure() {
-  if (confirm("That user name is taken. Try again?")) {
-      prompt_register();
-  }
+  // if (confirm("That user name is taken. Try again?")) {
+  //     prompt_register();
+  // }
 }
 function loginSuccess() {
   alert("Welcome!");
@@ -50,18 +63,6 @@ function connectSuccess() {
 }
 function connectFailure() {
   alert("Unknown domain");
-}
-
-////
-// helpers
-function prompt_login() {
-  var u = prompt("User name","frank");
-  if (u) {
-      var p = prompt("Password","pass");
-      if (p) {
-          xmpp.login(u, p, loginSuccess, loginFailure);
-      }
-  }
 }
 
 /** Called when a message is received */
