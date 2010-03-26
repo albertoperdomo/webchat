@@ -18,6 +18,16 @@ Stream-Hub
 It's a commercial project with a "free" community edition limited to 10 concurrent users.
 http://www.stream-hub.com/
 
+Meteor
+------
+It's a free server implementation of Comet written in Perl. (http://meteorserver.org)
+
+It's CPU intensive.
+Separating the comet server from the web server using ports won't work in Safari 2 or Opera.
+It doesn't support XMPP Protocol
+It doesn't support authentication?
+
+
 For an overview of existing solutions please visit  the[Comet server comparison matrix](http://cometdaily.com/maturity.html)
 
 Protocols
