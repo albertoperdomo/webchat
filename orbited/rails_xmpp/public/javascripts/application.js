@@ -11,7 +11,7 @@ jQuery.fn.submitWithAjax = function() {
   })
 };
 
-$(document).ready(function() {
-  $("#new_chat_contact").submitWithAjax();
-  $("#send_chat_message").submitWithAjax();
-});
+//$(document).ready(function() {
+//  $("#new_chat_contact").submitWithAjax();
+//  $("#send_chat_message").submitWithAjax();
+//});
