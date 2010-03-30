@@ -1,3 +1,0 @@
-page['roaster'].insert :bottom => "<div class='contact' id='#{@contact_jid}' style='height:100px;border:1px solid black;overflow:scroll;'>Contact: #{@contact_jid}</div>"
-page.call "onAddContact", @contact_jid
-page['chat_contact_jid'].clear

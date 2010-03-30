@@ -8,7 +8,7 @@
 
 <div id="users">
   <h2>Users</h2>
-  <% remote_form_for "chat_contact", :url => { :controller => "chat_contacts", :action => "create" } do |f| %>
+  <% remote_form_for "chat_contact", :url => { :controller => "chat_contacts", :action => "create" }, :html => { :id => 'new_chat_contact' } do |f| %>
     <h2>Add contact</h2>
     <%= f.text_field 'jid' %>
     <%= f.submit "Add contact" %>
@@ -22,7 +22,7 @@
 
 <div id="new_message">
   <h2>New message</h2>
-  <% remote_form_for "chat_message", :url => { :controller => "chat_messages", :action => "create" } do |f| %>
+  <% remote_form_for "chat_message", :url => { :controller => "chat_messages", :action => "create" }, :html => { :id => 'send_chat_message' } do |f| %>
     <label for="recipient_id">Recipient's JID<label>
     <%= f.text_field 'recipient_id' %>
     <label for="content">Message<label>

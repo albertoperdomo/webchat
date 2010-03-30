@@ -1,3 +1,0 @@
-page.call "onSendMessage", @Jid, @Jid, @message
-page['chat_message_message_to_jid'].clear
-page['chat_message_message_content'].clear

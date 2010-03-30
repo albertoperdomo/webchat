@@ -68,7 +68,7 @@ function connectFailure() {
 /** Called when a message is received */
 function onMessage(jid, username, text) {
   // update the UI to reflect the message received
-  page[jid].insert :bottom => "<p><span class='user_sender'>" + username + ":</span> " + text;
+  $(jid).append("<p><span class='user_sender'>" + username + ":</span> " + text);
 //  alert("Received message from " + username + ":\n" + text);
 }
 
@@ -76,7 +76,7 @@ function onMessage(jid, username, text) {
 function onSendMessage(toJid, toUsername, text) {
   // update the UI to reflect the message the user just sent
  // alert("Sending a message to " + toJid + ":\n" + text);
-  page[toJid].insert :bottom => "<p><span class='self'>me:</span> " + text;
+  $(toJid).append("<p><span class='self'>me:</span> " + text);
   xmpp.msg(toJid, text);
 }
 
