@@ -1,2 +1,2 @@
-onSendMessage('<%= escape_javascript("#{@jid}, #{@jid}, #{@content}") %>');
+onSendMessage('<%= escape_javascript("#{@jid}") %>', '<%= escape_javascript("#{@jid}") %>', '<%= escape_javascript("#{@content}") %>');
 $('#send_chat_message')[0].reset();
