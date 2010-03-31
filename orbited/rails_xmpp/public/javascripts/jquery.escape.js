@@ -4,7 +4,7 @@
 // Just like jQuery you can use it under either the MIT license or the GPL
 // (see: http://docs.jquery.com/License)
 (function() {
-escape_re = /[#;&,\.\+\*~':"!\^\$\[\]\(\)=>|\/\\]/;
+escape_re = /[@#;&,\.\+\*~':"!\^\$\[\]\(\)=>|\/\\]/;
 jQuery.escape = function jQuery$escape(s) {
   var left = s.split(escape_re, 1)[0];
   if (left == s) return s;
