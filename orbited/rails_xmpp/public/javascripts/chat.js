@@ -68,15 +68,15 @@ function connectFailure() {
 /** Called when a message is received */
 function onMessage(jid, username, text) {
   // update the UI to reflect the message received
-  $('#' + jid).livequery(function(){ $(this).append("<p><span class='user_sender'>" + username + ":</span> " + text) });
-//  alert("Received message from " + username + ":\n" + text);
+  // alert("Received message from " + username + ":\n" + text);
+  $('#' + $.escape(jid.split('/')[0])).append("<p><span class='user_sender'>" + username.split('/')[0] + ":</span> " + text);
 }
 
 /** Called when the user types a message to be sent */
 function onSendMessage(toJid, toUsername, text) {
   // update the UI to reflect the message the user just sent
- // alert("Sending a message to " + toJid + ":\n" + text);
-  $('#' + toJid).livequery(function(){ $(this).append("<p><span class='self'>me:</span> " + text) });
+  // alert("Sending a message to " + toJid + ":\n" + text);
+  $('#' + $.escape(toJid)).append("<p><span class='self'>me:</span> " + text);
   xmpp.msg(toJid, text);
 }
 
