@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.login "/login", :controller => :user_sessions, :action => "new"
   map.logout "/logout", :controller => :user_sessions, :action => "destroy"
-  map.singup "/singup", :controller => :users, :action => "new"
+  map.singup "/signup", :controller => :users, :action => "new"
 
   map.resource :user_session
   map.resources :users
