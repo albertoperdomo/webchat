@@ -9,12 +9,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310152732) do
+ActiveRecord::Schema.define(:version => 20100331093802) do
 
   create_table "chat_messages", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
     t.string   "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "login"
+    t.string   "email"
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "single_access_token"
+    t.string   "perishable_token"
+    t.integer  "login_count",         :default => 0, :null => false
+    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.datetime "last_request_at"
+    t.datetime "current_login_ip"
+    t.datetime "last_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
