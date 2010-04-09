@@ -4,9 +4,12 @@ Instructions
 * Check out this repo
 * Copy config/example_database.yml to config/database.yml and adapt to suit your DB
 * Copy config/example_orbited.yml to config/orbited_yml and adapt to suit your orbited/stomp setup
-* Make sure orbited is installed and running
-* Make sure the XMPP server is installed and running. We have used ejabberd which is an implementation written in Erlang, quite popular, robust and performant. Ejabberd also offers the possibility to authenticate users externally for instance using a Ruby script. In this way we can authenticate the users of the XMPP 
-* If you are going to use built-in authentication make sure you have created the users you are going to need
+* Install libcurl package (sudo aptitude install libcurl4-gnutls-dev) and install rubygems and curb gem.
+* Make sure the XMPP server ejabberd is installed.
+* Copy config/ejabberd_authentication.rb to /etc/ejabberd/authentication.rb (for example) and adapt your ejabberd setup to use this file for extertal authentication.
+* Make sure application is accessible from ejabberd server.
+* Start ejabberd and check authentication.rb script is running.
+* Make sure orbited is installed and running 
 
 Orbited/Rails integration
 =========================

@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.token_login "/token_auth", :controller => :users, :action => "token_auth"
+  map.token_login "/is_user", :controller => :users, :action => "is_user"
+
   map.login "/login", :controller => :user_sessions, :action => "new"
   map.logout "/logout", :controller => :user_sessions, :action => "destroy"
   map.singup "/signup", :controller => :users, :action => "new"

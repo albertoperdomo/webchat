@@ -31,6 +31,10 @@ xmpp.connect('localhost', 5222);
 
 ////
 // helpers
+function login() {
+  xmpp.login(user_name, user_token, loginSuccess, loginFailure);
+}
+
 function prompt_login() {
   var u = prompt("User name","user1");
   if (u) {
@@ -59,7 +63,7 @@ function loginFailure() {
   alert("Login error!")
 }
 function connectSuccess() {
-  prompt_login();
+  login();
 }
 function connectFailure() {
   alert("Unknown domain");

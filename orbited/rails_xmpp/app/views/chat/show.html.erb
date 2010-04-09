@@ -3,6 +3,10 @@
   <script>TCPSocket = Orbited.TCPSocket</script>
   <%= javascript_include_tag "/static/protocols/xmpp/xmpp" %>
   <%= javascript_include_tag "chat" %>
+  <script>
+    user_name = "<%= current_user.login %>";
+    user_token = "<%= current_user.single_access_token %>";
+  </script>
 <% end %>
 <h1>Chat</h1>
 

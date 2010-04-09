@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  skip_before_filter :require_user, :only => [:new, :create]
+  skip_before_filter :require_user, :only => [:new, :create, :token_auth]
 
   # GET /users
   # GET /users.xml
@@ -83,6 +83,30 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
+    end
+  end
+
+
+  # Rest API for ejabberd authentication
+  def token_auth
+    user = User.find_by_login_and_single_access_token(params[:login], params[:token])
+    respond_to do |format|
+      if user
+        format.xml { render :xml => "ok" }
+      else
+        format.xml  { render :xml => "fail" }
+      end
+    end
+  end
+
+  def is_user
+    user = User.find_by_login(params[:login])
+    respond_to do |format|
+      if user
+        format.xml { render :xml => "ok" }
+      else
+        format.xml  { render :xml => "fail" }
+      end
     end
   end
 end
