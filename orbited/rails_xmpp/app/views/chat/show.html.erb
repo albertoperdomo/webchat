@@ -10,28 +10,27 @@
 <% end %>
 <h1>Chat</h1>
 
-<div id="users">
+<div id="roaster">
   <h2>Users</h2>
   <% remote_form_for "chat_contact", :url => { :controller => "chat_contacts", :action => "create" }, :html => { :id => 'new_chat_contact' } do |f| %>
-    <h2>Add contact</h2>
+    <h3>Add contact</h3>
     <%= f.text_field 'jid' %>
     <%= f.submit "Add contact" %>
-  <% end%>
-</div>
-
-
-<div id="roaster">
-  <h2>Roaster</h2>
-</div>
-
-<div id="new_message">
-  <h2>New message</h2>
-  <% remote_form_for "chat_message", :url => { :controller => "chat_messages", :action => "create" }, :html => { :id => 'send_chat_message' } do |f| %>
-    <label for="recipient_id">Recipient's JID<label>
-    <%= f.text_field 'recipient_id' %>
-    <label for="content">Message<label>
-    <%= f.text_field 'content' %>
-    <%= f.hidden_field 'sender_id', :value => "" %> 
-    <%= f.submit "Send message" %>
   <% end %>
+  <ul id="user_list">
+  </ul>
+</div>
+
+<div id="chat_box">
+  <div id="new_message">
+    <h2>New message</h2>
+    <% remote_form_for "chat_message", :url => { :controller => "chat_messages", :action => "create" }, :html => { :id => 'send_chat_message' } do |f| %>
+      <label for="recipient_id">Recipient's JID<label>
+      <%= f.text_field 'recipient_id' %>
+      <label for="content">Message<label>
+      <%= f.text_field 'content' %>
+      <%= f.hidden_field 'sender_id', :value => "" %> 
+      <%= f.submit "Send message" %>
+    <% end %>
+  </div>
 </div>

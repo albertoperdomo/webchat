@@ -1,3 +1,3 @@
-$('#roaster').append('<%= escape_javascript("<div class='contact' id='#{@contact_jid}' style='height:100px;border:1px solid black;overflow:scroll;'>Contact: #{@contact_jid}</div>") %>');
+$('#user_list').append('<%= escape_javascript("<li class='contact' id='budy_#{@contact_jid}'>#{@contact_jid}</li>") %>');
 onAddContact('<%= escape_javascript(@contact_jid) %>');
 $('#new_chat_contact')[0].reset();
