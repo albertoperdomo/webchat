@@ -1,5 +1,7 @@
 class ChatMessage < ActiveRecord::Base
+  validates_presence_of :sender_id, :recipient_id, :content
 end
+
 
 # == Schema Information
 #
