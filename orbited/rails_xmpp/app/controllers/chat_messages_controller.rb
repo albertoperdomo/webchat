@@ -16,4 +16,13 @@ class ChatMessagesController < ApplicationController
     end
   end
 
+  def show
+    @message = current_user.received_messages.find(params[:id]) rescue nil
+    @message.try(:read!) if @message.try(:unreaded?)
+
+    respond_to do |format|
+      format.json { render :json => @message.to_json }
+    end
+  end
+
 end

@@ -98,24 +98,22 @@ function connectFailure() {
 }
 
 /** Called when a message is received */
-function onMessage(jid, username, text) {
+function onMessage(jid, username, message_id) {
   // update the UI to reflect the message received
-  //alert("Received message from " + username + ":\n" + text);
-  if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
-    $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
-  }
-  $('#chat_' + $.escape(jid.split('/')[0])).append("<p><span class='user_sender'>" + username.split('/')[0] + ":</span> " + text);
+  $.getJSON('chat_messages/' + message_id + '.json', function(data){
+          if (data != null) {
+            if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
+              $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
+            }
+            $('#chat_' + $.escape(jid.split('/')[0])).append("<p><span class='user_sender'>" + username.split('/')[0] + ":</span> " + data.chat_message.content);
+          }
+        });
 }
 
 /** Called when the user types a message to be sent */
-function onSendMessage(toJid, toUsername, text) {
-  // update the UI to reflect the message the user just sent
-  //alert("Sending a message to " + toJid + ":\n" + text);
-  if ($('#chat_' + $.escape(toJid)).length == 0) {
-    $('#chat_box').append('<div id="chat_' + toJid + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
-  }
-  $('#chat_' + $.escape(toJid)).append("<p><span class='self'>me:</span> " + text);
-  xmpp.msg(toJid, text);
+function onSendMessage(toJid, toUsername, message_id) {
+  // send message to jabber server
+  xmpp.msg(toJid, message_id);
 }
 
 /** Called when the user wants to add that contact */

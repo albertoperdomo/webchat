@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
 
   acts_as_authentic
 
+  has_many :received_messages, :class_name => "ChatMessage", :foreign_key => :recipient_id
+  has_many :sent_messages, :class_name => "ChatMessage", :foreign_key => :sender_id
+
 end
 
 # == Schema Information

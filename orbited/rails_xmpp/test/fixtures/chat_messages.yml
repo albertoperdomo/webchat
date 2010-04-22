@@ -10,6 +10,7 @@ two:
   recipient_id: 1
   content: MyString
 
+
 # == Schema Information
 #
 # Table name: chat_messages
@@ -20,5 +21,6 @@ two:
 #  content      :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  state        :string(255)
 #
 

@@ -7,6 +7,7 @@ class ChatMessageTest < ActiveSupport::TestCase
   end
 end
 
+
 # == Schema Information
 #
 # Table name: chat_messages
@@ -17,5 +18,6 @@ end
 #  content      :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  state        :string(255)
 #
 

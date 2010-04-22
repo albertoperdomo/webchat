@@ -201,10 +201,11 @@ XMPPClient = function() {
 //        console.log("connection opened");
     }
     var nodeReceived = function(node) {
+//	console.log(node);
         if (!node) { // for IE - necessary?
             return;
         }
-        if (node.nodeName == "message") {
+        if (node.nodeName == "message" && node.getAttribute("type") != "error") {
             var from = node.getAttribute("from");
             var c = node.childNodes;
             var body = null
