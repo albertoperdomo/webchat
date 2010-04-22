@@ -5,16 +5,16 @@
 xmpp = new XMPPClient();
 xmpp.onPresence = function(ntype, from, to) {
     if (! ntype) {
-      
       //alert("User " + from + " available");
-      $('#user_list').append("<li class='contact' id='budy_" + from.split('/')[0] + "'>" + from.split('/')[0] + "</li>");
+      $('#buddy_' + $.escape(from.split('/')[0]) + ' span.presence').empty().append("online");
     }
     else if (ntype == "unavailable") {
       //alert("User " + from + " unavailable");
-      $('#budy_' + $.escape(from.split('/')[0])).remove();
+      $('#buddy_' + $.escape(from.split('/')[0]) + ' span.presence').empty().append("offline");
     }
     else if (ntype == "subscribe") {
       xmpp.sendSubscribed(from, to);
+      alert("SUSCRIBE");
     }
     else if (ntype == "subscribed") {
       alert(from + " added to your buddy list!");
@@ -23,6 +23,31 @@ xmpp.onPresence = function(ntype, from, to) {
       alert("User " + from + " unsubscribed");
     }
 }
+
+xmpp.onRoster = function(ntype, buddy, subscription, ask) {
+  //alert("ROSTERIZE: " + buddy + " with subscription " + subscription + " and type " + ntype);
+  if ((subscription == "both" || subscription == "to") || (ask == "subscribe" && (subscription == "none" || subscription == "from"))) {
+
+    if (ask == "subscribe") {
+      var subscription_status = "pending"
+    }
+    else {
+      var subscription_status = "in roster"
+    }
+
+    if ($('#buddy_' + $.escape(buddy)).length == 0) {
+      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='presence'>offline</span> <span class='subscription_status'>" + subscription_status + "</span> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
+    }
+    else {
+      $('#buddy_' + $.escape(buddy) + ' span.subscription_status').empty().append(subscription_status);
+    }
+
+  }
+  else if (ntype == "set" && ! ask && (subscription == "from" || subscription == "none")) {
+    $('#buddy_' + $.escape(buddy)).remove();
+  }
+}
+
 xmpp.onMessage = onMessage;
 xmpp.onSocketConnect = function() {
   // the xmpp domain for the user
@@ -75,7 +100,7 @@ function connectFailure() {
 /** Called when a message is received */
 function onMessage(jid, username, text) {
   // update the UI to reflect the message received
-  // alert("Received message from " + username + ":\n" + text);
+  //alert("Received message from " + username + ":\n" + text);
   if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
     $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
   }
@@ -85,7 +110,7 @@ function onMessage(jid, username, text) {
 /** Called when the user types a message to be sent */
 function onSendMessage(toJid, toUsername, text) {
   // update the UI to reflect the message the user just sent
-  // alert("Sending a message to " + toJid + ":\n" + text);
+  //alert("Sending a message to " + toJid + ":\n" + text);
   if ($('#chat_' + $.escape(toJid)).length == 0) {
     $('#chat_box').append('<div id="chat_' + toJid + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
   }
@@ -102,5 +127,5 @@ function onAddContact(jid) {
 /** Called when the user clicks the user list's remove contact button */
 function onRemoveContact(jid, username) {
   xmpp.unsubscribe(jid);
-  alert("User " + username + "removed!");
+  alert("User " + username + " removed!");
 }

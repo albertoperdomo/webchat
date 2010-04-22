@@ -9,7 +9,8 @@ Instructions
 * Copy config/ejabberd_authentication.rb to /etc/ejabberd/authentication.rb (for example) and adapt your ejabberd setup to use this file for extertal authentication.
 * Make sure application is accessible from ejabberd server.
 * Start ejabberd and check authentication.rb script is running.
-* Make sure orbited is installed and running 
+* Make sure orbited is installed and running.
+* Copy ../protocols/xmpp.js to orbited static/protocols/xmpp.js
 
 Orbited/Rails integration
 =========================

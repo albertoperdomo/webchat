@@ -52,3 +52,6 @@ a:hover { color: #fff; background-color:#000; }
   list-style: square;
 }
 
+.stroke_border {
+  border: 1px solid #000;
+}
