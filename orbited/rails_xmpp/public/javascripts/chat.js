@@ -36,7 +36,11 @@ xmpp.onRoster = function(ntype, buddy, subscription, ask) {
     }
 
     if ($('#buddy_' + $.escape(buddy)).length == 0) {
-      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='presence'>offline</span> <span class='subscription_status'>" + subscription_status + "</span> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
+      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='unreaded'></span> <span class='presence'>offline</span> <span class='subscription_status'>" + subscription_status + "</span> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
+
+      $.getJSON('chat_messages/unreaded_messages_count_by_user.json', 'sender=' + buddy, function(data) {
+            $('#buddy_' + $.escape(buddy) + ' span.unreaded').append(data);
+          });
     }
     else {
       $('#buddy_' + $.escape(buddy) + ' span.subscription_status').empty().append(subscription_status);

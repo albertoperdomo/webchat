@@ -25,4 +25,12 @@ class ChatMessagesController < ApplicationController
     end
   end
 
+  def unreaded_messages_count_by_user
+    unreaded_messages = current_user.received_messages.count(:conditions => "state = 'unreaded' and sender_id = #{User.find_by_login(params[:sender].split('@')[0]).to_param}")
+
+    respond_to do |format|
+      format.json { render :json => unreaded_messages.to_json }
+    end
+  end
+
 end

@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.token_login "/token_auth", :controller => :users, :action => "token_auth"
-  map.token_login "/is_user", :controller => :users, :action => "is_user"
+  map.xmpp_token_auth "/token_auth", :controller => :users, :action => "token_auth"
+  map.xmpp_is_user "/is_user", :controller => :users, :action => "is_user"
 
   map.login "/login", :controller => :user_sessions, :action => "new"
   map.logout "/logout", :controller => :user_sessions, :action => "destroy"
@@ -11,7 +11,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # The priority is based upon order of creation: first created -> highest priority.
   map.resources :chat_contacts, :only => [:create]
-  map.resources :chat_messages, :only => [:create, :show]
+  map.resources :chat_messages,
+    :only => [:create, :show],
+    :collection => {:unreaded_messages_count_by_user => :get}
   
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
