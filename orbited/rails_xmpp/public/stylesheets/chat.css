@@ -1,0 +1,11 @@
+.stroke_border {
+  border: 1px solid #000;
+}
+
+.unreaded {
+  color: red;
+}
+
+.readed {
+  color: blue;
+}

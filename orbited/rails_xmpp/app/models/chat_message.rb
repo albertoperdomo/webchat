@@ -1,5 +1,12 @@
 class ChatMessage < ActiveRecord::Base
+
+  belongs_to :sender, :class_name => "User"
+  belongs_to :recipient, :class_name => "User"
+
   validates_presence_of :sender_id, :recipient_id, :content
+
+  default_scope :order => :created_at
+
 
   include AASM
   aasm_column :state
@@ -11,7 +18,6 @@ class ChatMessage < ActiveRecord::Base
   aasm_event :read do
     transitions :to => :readed, :from => :unreaded
   end
-
 end
 
 

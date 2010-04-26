@@ -36,9 +36,9 @@ xmpp.onRoster = function(ntype, buddy, subscription, ask) {
     }
 
     if ($('#buddy_' + $.escape(buddy)).length == 0) {
-      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='unreaded'></span> <span class='presence'>offline</span> <span class='subscription_status'>" + subscription_status + "</span> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
+      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='unreaded'></span> <span class='presence'>offline</span> <span class='subscription_status'>" + subscription_status + "</span> <a onclick=\"openChatWindow('" +  buddy + "');\" href='#'>chat</a> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
 
-      $.getJSON('chat_messages/unreaded_messages_count_by_user.json', 'sender=' + buddy, function(data) {
+      $.getJSON('chat_messages/unreaded_messages_count_by_buddy.json', 'buddy=' + buddy, function(data) {
             $('#buddy_' + $.escape(buddy) + ' span.unreaded').append(data);
           });
     }
@@ -104,14 +104,20 @@ function connectFailure() {
 /** Called when a message is received */
 function onMessage(jid, username, message_id) {
   // update the UI to reflect the message received
-  $.getJSON('chat_messages/' + message_id + '.json', function(data){
-          if (data != null) {
-            if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
-              $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
-            }
-            $('#chat_' + $.escape(jid.split('/')[0])).append("<p><span class='user_sender'>" + username.split('/')[0] + ":</span> " + data.chat_message.content);
+  if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
+    var unreaded_msgs = parseInt($('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').text());
+    $('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').empty().append(unreaded_msgs + 1);
+  }
+  else {
+    $.getJSON('chat_messages/' + message_id + '.json', function(data){
+        if (data != null) {
+          if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
+            $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
           }
-        });
+          $('#chat_' + $.escape(jid.split('/')[0])).append("<p class='new'><span class='buddy'>" + username.split('/')[0] + ":</span> " + data.chat_message.content);
+        }
+      });
+  };
 }
 
 /** Called when the user types a message to be sent */
@@ -130,4 +136,40 @@ function onAddContact(jid) {
 function onRemoveContact(jid, username) {
   xmpp.unsubscribe(jid);
   alert("User " + username + " removed!");
+}
+
+/** Called when the user clicks the user list's chat contact button */
+function openChatWindow(buddy) {
+  $('#buddy_' + $.escape(buddy) + ' span.unreaded').empty().append("0");
+
+  if ($('#chat_' + $.escape(buddy)).length == 0) {
+    $('#chat_box').append('<div id="chat_' + buddy + '" style="height:500px;border:1px solid black;overflow:scroll;"><h3>Chat with ' + buddy + '</h3></div>');
+  }
+
+  $.getJSON('chat_messages/last_messages_by_buddy.json', 'buddy=' + buddy, function(data){
+      for(var i = 0; i < data.chat_messages.length; i++) {
+        if (data.chat_messages[i].chat_message.sender_id == data.buddy) {
+          var sender = buddy;
+        }
+        else {
+          var sender = "me";
+        };
+
+        if (sender == "me") {
+          var sender_class = "me";
+        }
+        else {
+          var sender_class = "buddy";
+        };
+
+        if ((sender == buddy) && (data.chat_messages[i].chat_message.state == "unreaded")) {
+          var msg_status = "unreaded";
+        }
+        else {
+          var msg_status = "readed";
+        };
+
+        $('#chat_' + $.escape(buddy)).append("<p class=" + msg_status + "><span class='" + sender_class + "'>" + sender + ":</span> " + data.chat_messages[i].chat_message.content);
+      }
+  });
 }

@@ -6,4 +6,4 @@ onSendMessage('<%= escape_javascript(@jid) %>', '<%= escape_javascript(@jid) %>'
 if ($('#chat_' + $.escape('<%= escape_javascript(@jid) %>')).length == 0) {
   $('#chat_box').append('<div id="chat_<%= escape_javascript(@jid) %>" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
 }
-$('#chat_' + $.escape('<%= escape_javascript(@jid) %>')).append("<p><span class='self'>me:</span> <%= escape_javascript(@content) %>");
+$('#chat_' + $.escape('<%= escape_javascript(@jid) %>')).append("<p><span class='me'>me:</span> <%= escape_javascript(@content) %>");

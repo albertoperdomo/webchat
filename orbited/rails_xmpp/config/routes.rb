@@ -13,8 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :chat_contacts, :only => [:create]
   map.resources :chat_messages,
     :only => [:create, :show],
-    :collection => {:unreaded_messages_count_by_user => :get}
-  
+    :collection => {:unreaded_messages_count_by_buddy => :get, :last_messages_by_buddy => :get}
+
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
@@ -54,4 +54,5 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing or commenting them out if you're using named routes and resources.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action.:format'
 end

@@ -4,7 +4,7 @@
   <head>
     <title><%= h(yield(:title) || "Untitled") %> (XMPP)</title>
     <%= javascript_include_tag "jquery", "jquery-ui", "jrails", "jquery.escape", "application" %>
-    <%= stylesheet_link_tag "scaffold" %>
+    <%= stylesheet_link_tag "scaffold", "chat" %>
     <%= yield(:head) %>
   </head>
   <body>

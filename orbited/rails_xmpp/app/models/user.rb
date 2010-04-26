@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :received_messages, :class_name => "ChatMessage", :foreign_key => :recipient_id
   has_many :sent_messages, :class_name => "ChatMessage", :foreign_key => :sender_id
+  has_many :chat_messages, :finder_sql => 'SELECT * FROM chat_messages WHERE (chat_messages.sender_id = #{id} or chat_messages.recipient_id = #{id}) ORDER BY created_at'
 
 end
 
