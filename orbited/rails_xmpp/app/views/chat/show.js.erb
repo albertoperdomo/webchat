@@ -1,3 +1,8 @@
-onAddContact('<%= escape_javascript("#{@contact.login}@localhost") %>');
-openChatWindow('<%= escape_javascript("#{@contact.login}@localhost") %>');
+var contact_jid = '<%= escape_javascript("#{@contact.login}@localhost") %>'
+
+if ($('#buddy_' + $.escape(contact_jid)).length == 0) {
+  onAddContact(contact_jid);
+}
+
+openChatWindow(contact_jid);
 $('#chat_popup').removeClass('hidden');
