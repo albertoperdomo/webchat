@@ -1,8 +1,14 @@
-var contact_jid = '<%= escape_javascript("#{@contact.login}@localhost") %>'
+// Add to roster all contacts (senders) with unreaded messages
+<% for contact_to_rosterize in @contacts_to_rosterize %>
+  var contact_to_rosterize_jid = '<%= escape_javascript("#{contact_to_rosterize.login}@localhost") %>'
+  if ($('#buddy_' + $.escape(contact_to_rosterize_jid)).length == 0) {
+    onAddContact(contact_to_rosterize_jid);
+  }
+<% end %>
 
+var contact_jid = '<%= escape_javascript("#{@contact.login}@localhost") %>'
 if ($('#buddy_' + $.escape(contact_jid)).length == 0) {
   onAddContact(contact_jid);
 }
-
 openChatWindow(contact_jid);
 $('#chat_popup').removeClass('hidden');
