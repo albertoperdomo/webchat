@@ -103,6 +103,11 @@ function connectFailure() {
 
 /** Called when a message is received */
 function onMessage(jid, username, message_id) {
+  // 'Rosterize' new contact
+  if ($('#buddy_' + $.escape(jid.split('/')[0])).length == 0) {
+    onAddContact(jid.split('/')[0]);
+  }
+
   // update the UI to reflect the message received
   if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
     var unreaded_msgs = parseInt($('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').text());
