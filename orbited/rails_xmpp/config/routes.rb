@@ -9,8 +9,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
   map.resources :users
 
+  map.chat "/chat.js", :controller => :chat, :action => :show, :format => "js"
+
   # The priority is based upon order of creation: first created -> highest priority.
-  map.resources :chat_contacts, :only => [:create]
   map.resources :chat_messages,
     :only => [:create, :show],
     :collection => {:unreaded_messages_count_by_buddy => :get, :last_messages_by_buddy => :get}
@@ -45,7 +46,8 @@ ActionController::Routing::Routes.draw do |map|
   #   end
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => "chat", :action => "show"
+  #map.root :controller => "chat", :action => "show"
+  map.root :controller => :users, :action => :contacts
 
   # See how all your routes lay out with "rake routes"
 

@@ -89,7 +89,7 @@ function registerFailure() {
   // }
 }
 function loginSuccess() {
-  alert("Welcome!");
+  //alert("Welcome!");
 }
 function loginFailure() {
   alert("Login error!")
@@ -143,6 +143,7 @@ function openChatWindow(buddy) {
   $('#buddy_' + $.escape(buddy) + ' span.unreaded').empty().append("0");
 
   if ($('#chat_' + $.escape(buddy)).length == 0) {
+    $('#chat_box').empty();
     $('#chat_box').append('<div id="chat_' + buddy + '" style="height:500px;border:1px solid black;overflow:scroll;"><h3>Chat with ' + buddy + '</h3></div>');
   }
 
@@ -172,4 +173,10 @@ function openChatWindow(buddy) {
         $('#chat_' + $.escape(buddy)).append("<p class=" + msg_status + "><span class='" + sender_class + "'>" + sender + ":</span> " + data.chat_messages[i].chat_message.content);
       }
   });
+
+  /* Set recipient_id in send_message form */
+  $('#chat_message_recipient_id').val(buddy);
+
+  /* send_message form submit enable */
+  $('#chat_message_submit').removeAttr('disabled');
 }

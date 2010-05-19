@@ -1,0 +1,32 @@
+<%# ToDo: Move javascript imports to chat view %>
+<% content_for :head do %>
+  <%= javascript_include_tag "/static/Orbited" %>
+  <script>TCPSocket = Orbited.TCPSocket</script>
+  <%= javascript_include_tag "/static/protocols/xmpp/xmpp" %>
+  <%= javascript_include_tag "chat" %>
+  <script>
+    user_name = "<%= current_user.login %>";
+    user_token = "<%= current_user.single_access_token %>";
+  </script>
+<% end %>
+
+<h1>All users</h1>
+
+<table>
+  <tr>
+    <th>Contact login(name)</th>
+  </tr>
+
+<% @contacts.each do |contact| %>
+  <tr>
+    <td><%=h contact.login %></td>
+    <!--td><%#= link_to_remote 'Chat', :url => add_chat_contact_path(contact, :format => :js), :method => :get %></td-->
+    <td><%= link_to_remote 'Chat', :url => chat_path(:contact_id => contact.to_param, :format => "js"), :method => :get %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<div id="chat_popup" class="hidden stroke_border">
+  <%= render :partial => 'chat/show' %>
+</div>

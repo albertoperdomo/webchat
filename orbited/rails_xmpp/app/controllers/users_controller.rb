@@ -86,6 +86,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def contacts
+    @contacts = User.all
+  end
+
 
   # Rest API for ejabberd authentication
   def token_auth

@@ -1,0 +1,21 @@
+<h1>Chat</h1>
+
+<div id="user_list">
+  <h2>Users</h2>
+  <div class="stroke_border">
+    <ul id="roster">
+    </ul>
+  </div>
+</div>
+
+<div id="chat_box" class="stroke_border">
+</div>
+
+<div id="new_message">
+  <h2>Send message</h2>
+  <% remote_form_for "chat_message", :url => { :controller => "chat_messages", :action => "create" }, :html => { :id => 'send_chat_message' } do |f| %>
+    <%= f.hidden_field :recipient_id %>
+    <%= f.text_field 'content' %>
+    <%= f.submit "Send", {:disabled => true} %>
+  <% end %>
+</div>

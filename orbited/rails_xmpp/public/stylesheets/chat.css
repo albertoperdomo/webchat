@@ -9,3 +9,16 @@
 .readed {
   color: blue;
 }
+
+.hidden {
+  display: none;
+}
+
+#chat_popup {
+  padding: 10px;
+  margin: 30px;
+}
+
+#chat_box {
+  margin-top: 10px;
+}
