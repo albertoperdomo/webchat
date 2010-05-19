@@ -87,7 +87,7 @@ class UsersController < ApplicationController
   end
 
   def contacts
-    @contacts = User.all
+    @contacts = User.find(:all, :conditions => ["id != ?", current_user.id])
   end
 
 
