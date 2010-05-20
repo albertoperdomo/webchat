@@ -1,3 +1,18 @@
+var contacts_to_rosterize = new Array();
+<% for contact_to_rosterize in @contacts_to_rosterize %>
+  contacts_to_rosterize.push("<%= escape_javascript("#{contact_to_rosterize.login}@localhost") %>");
+<% end %>
+
+if ($('#chat_popup').is('.hidden')) {
+  // Remove contacts not selected to 'rosterize'
+  $('#roster').children().each(function() {
+      var buddy = $(this).attr('id').replace(/^buddy_/, '');
+      if (contacts_to_rosterize.indexOf(buddy) == -1) {
+        onRemoveContact(buddy + '/Orbited', buddy);
+      }
+    });
+}
+
 // Add to roster all contacts (senders) with unreaded messages
 <% for contact_to_rosterize in @contacts_to_rosterize %>
   var contact_to_rosterize_jid = '<%= escape_javascript("#{contact_to_rosterize.login}@localhost") %>'
