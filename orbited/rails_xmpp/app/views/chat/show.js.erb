@@ -1,7 +1,10 @@
+var selected_contact = '<%= escape_javascript("#{@contact.login}@localhost") %>'
+
 var contacts_to_rosterize = new Array();
 <% for contact_to_rosterize in @contacts_to_rosterize %>
   contacts_to_rosterize.push("<%= escape_javascript("#{contact_to_rosterize.login}@localhost") %>");
 <% end %>
+
 
 if ($('#chat_popup').is('.hidden')) {
   // Remove contacts not selected to 'rosterize'
@@ -11,19 +14,20 @@ if ($('#chat_popup').is('.hidden')) {
         onRemoveContact(buddy + '/Orbited', buddy);
       }
     });
-}
 
-// Add to roster all contacts (senders) with unreaded messages
-<% for contact_to_rosterize in @contacts_to_rosterize %>
-  var contact_to_rosterize_jid = '<%= escape_javascript("#{contact_to_rosterize.login}@localhost") %>'
-  if ($('#buddy_' + $.escape(contact_to_rosterize_jid)).length == 0) {
-    onAddContact(contact_to_rosterize_jid);
+  // Add to roster all contacts (senders) with unreaded messages
+  for(var i = 0; i < contacts_to_rosterize.length; i++) {
+    if ($('#buddy_' + $.escape(contacts_to_rosterize[i])).length == 0) {
+      onAddContact(contacts_to_rosterize[i]);
+    }
   }
-<% end %>
-
-var contact_jid = '<%= escape_javascript("#{@contact.login}@localhost") %>'
-if ($('#buddy_' + $.escape(contact_jid)).length == 0) {
-  onAddContact(contact_jid);
 }
-openChatWindow(contact_jid);
+else {
+  // Add selected contact
+  if ($('#buddy_' + $.escape(selected_contact)).length == 0) {
+    onAddContact(selected_contact);
+  }
+}
+
+openChatWindow(selected_contact);
 $('#chat_popup').removeClass('hidden');
