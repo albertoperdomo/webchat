@@ -15,7 +15,7 @@ if ($('#chat_popup').is('.hidden')) {
       }
     });
 
-  // Add to roster all contacts (senders) with unreaded messages
+  // Add to roster all selected contacts (senders) to 'rosterize'
   for(var i = 0; i < contacts_to_rosterize.length; i++) {
     if ($('#buddy_' + $.escape(contacts_to_rosterize[i])).length == 0) {
       onAddContact(contacts_to_rosterize[i]);
@@ -23,7 +23,7 @@ if ($('#chat_popup').is('.hidden')) {
   }
 }
 else {
-  // Add selected contact
+  // Add selected contact if chat 'popup' isn't hidden
   if ($('#buddy_' + $.escape(selected_contact)).length == 0) {
     onAddContact(selected_contact);
   }
