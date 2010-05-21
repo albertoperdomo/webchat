@@ -14,13 +14,13 @@ xmpp.onPresence = function(ntype, from, to) {
     }
     else if (ntype == "subscribe") {
       xmpp.sendSubscribed(from, to);
-      alert("SUSCRIBE");
+      //alert("SUSCRIBE");
     }
     else if (ntype == "subscribed") {
-      alert(from + " added to your buddy list!");
+      //alert(from + " added to your buddy list!");
     }
     else if (ntype == "unsubscribed") {
-      alert("User " + from + " unsubscribed");
+      //alert("User " + from + " unsubscribed");
     }
 }
 
@@ -134,13 +134,13 @@ function onSendMessage(toJid, toUsername, message_id) {
 /** Called when the user wants to add that contact */
 function onAddContact(jid) {
   xmpp.subscribe(jid);
-  alert("Buddy request sent.");
+  //alert("Buddy request sent.");
 }
 
 /** Called when the user clicks the user list's remove contact button */
 function onRemoveContact(jid, username) {
   xmpp.unsubscribe(jid);
-  alert("User " + username + " removed!");
+  //alert("User " + username + " removed!");
 }
 
 /** Called when the user clicks the user list's chat contact button */
