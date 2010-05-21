@@ -90,6 +90,26 @@ class UsersController < ApplicationController
     @contacts = User.find(:all, :conditions => ["id != ?", current_user.id])
   end
 
+  def block
+    @contact = User.find(params[:id])
+    current_user.blocked_contacts << @contact
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unblock
+    @contact = User.find(params[:id])
+    current_user.blocked_contacts.delete(@contact)
+
+    @has_unreaded_messages = current_user.has_unreaded_messages_from? @contact
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   # Rest API for ejabberd authentication
   def token_auth

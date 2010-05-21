@@ -1,0 +1,10 @@
+var selected_contact_login = '<%= escape_javascript(@contact.login) %>'
+var selected_contact = selected_contact_login + '@localhost'
+
+if (<%= @has_unreaded_messages %>) {
+  onAddContact(selected_contact);
+}
+
+$('tr#' + selected_contact_login).removeClass('blocked');
+$('tr#' + selected_contact_login + ' td.action_link a').toggleClass('hidden');
+

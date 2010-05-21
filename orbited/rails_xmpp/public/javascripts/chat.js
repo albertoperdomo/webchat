@@ -103,25 +103,27 @@ function connectFailure() {
 
 /** Called when a message is received */
 function onMessage(jid, username, message_id) {
-  // 'Rosterize' new contact
-  if ($('#buddy_' + $.escape(jid.split('/')[0])).length == 0) {
-    onAddContact(jid.split('/')[0]);
-  }
+  if ($('#' + username.split('@')[0] + '.blocked').length == 0) {
+    // 'Rosterize' new contact
+    if ($('#buddy_' + $.escape(jid.split('/')[0])).length == 0) {
+      onAddContact(jid.split('/')[0]);
+    }
 
-  // update the UI to reflect the message received
-  if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
-    var unreaded_msgs = parseInt($('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').text());
-    $('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').empty().append(unreaded_msgs + 1);
-  }
-  else {
-    $.getJSON('chat_messages/' + message_id + '.json', function(data){
-        if (data != null) {
-          if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
-            $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
+    // update the UI to reflect the message received
+    if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
+      var unreaded_msgs = parseInt($('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').text());
+      $('#buddy_' + $.escape(jid.split('/')[0]) + ' span.unreaded').empty().append(unreaded_msgs + 1);
+    }
+    else {
+      $.getJSON('chat_messages/' + message_id + '.json', function(data){
+          if (data != null) {
+            if ($('#chat_' + $.escape(jid.split('/')[0])).length == 0) {
+              $('#chat_box').append('<div id="chat_' + jid.split('/')[0] + '" style="height:100px;border:1px solid black;overflow:scroll;"></div>');
+            }
+            $('#chat_' + $.escape(jid.split('/')[0])).append("<p class='new'><span class='buddy'>" + username.split('/')[0] + ":</span> " + data.chat_message.content);
           }
-          $('#chat_' + $.escape(jid.split('/')[0])).append("<p class='new'><span class='buddy'>" + username.split('/')[0] + ":</span> " + data.chat_message.content);
-        }
-      });
+        });
+    };
   };
 }
 

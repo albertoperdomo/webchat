@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.singup "/signup", :controller => :users, :action => "new"
 
   map.resource :user_session
-  map.resources :users
+  map.resources :users, :member => { :block => :put, :unblock => :put }
 
   map.chat "/chat.js", :controller => :chat, :action => :show, :format => "js"
 

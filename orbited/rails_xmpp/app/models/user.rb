@@ -6,6 +6,18 @@ class User < ActiveRecord::Base
   has_many :sent_messages, :class_name => "ChatMessage", :foreign_key => :sender_id
   has_many :chat_messages, :finder_sql => 'SELECT * FROM chat_messages WHERE (chat_messages.sender_id = #{id} or chat_messages.recipient_id = #{id}) ORDER BY created_at'
 
+  has_many :blocked_contacts_pairs, :class_name => "BlockedContact"
+  has_many :blocked_contacts, :through => :blocked_contacts_pairs
+
+
+  def blocked?(contact)
+    blocked_contacts.include?(contact)
+  end
+
+  def has_unreaded_messages_from?(contact)
+    received_messages.unreaded.collect { |msg| msg.sender }.include? contact
+  end
+
 end
 
 # == Schema Information

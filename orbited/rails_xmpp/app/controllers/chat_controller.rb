@@ -7,6 +7,7 @@ class ChatController < ApplicationController
     @contacts_to_rosterize = current_user.received_messages.unreaded.collect {|msg| msg.sender }
     @contacts_to_rosterize << @contact
     @contacts_to_rosterize.uniq!
+    @contacts_to_rosterize = @contacts_to_rosterize - current_user.blocked_contacts
 
     respond_to do |format|
       format.js

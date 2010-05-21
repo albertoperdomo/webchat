@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100412131214) do
+ActiveRecord::Schema.define(:version => 20100521112137) do
+
+  create_table "blocked_contacts", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "blocked_contact_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "chat_messages", :force => true do |t|
     t.integer  "sender_id"

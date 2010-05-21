@@ -18,10 +18,13 @@
   </tr>
 
 <% @contacts.each do |contact| %>
-  <tr>
+  <tr id='<%= contact.login %>' <%= " class='blocked'" if current_user.blocked?(contact) %>>
     <td><%=h contact.login %></td>
-    <!--td><%#= link_to_remote 'Chat', :url => add_chat_contact_path(contact, :format => :js), :method => :get %></td-->
-    <td><%= link_to_remote 'Chat', :url => chat_path(:contact_id => contact.to_param, :format => "js"), :method => :get %></td>
+    <td class='action_link'><%= link_to_remote 'Chat', { :url => chat_path(:contact_id => contact.to_param, :format => "js"), :method => :get }, { :class => ('hidden' if current_user.blocked?(contact)) } %></td>
+    <td class='action_link'>
+      <%= link_to_remote 'Block', { :url => block_user_path(:id => contact.to_param, :format => "js"), :method => :put }, { :class => ('hidden' if current_user.blocked?(contact)) } %>
+      <%= link_to_remote 'Unblock', { :url => unblock_user_path(:id => contact.to_param, :format => "js"), :method => :put }, { :class => ('hidden' unless current_user.blocked?(contact)) } %>
+    </td>
   </tr>
 <% end %>
 </table>
