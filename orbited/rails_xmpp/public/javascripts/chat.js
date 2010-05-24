@@ -28,24 +28,13 @@ xmpp.onRoster = function(ntype, buddy, subscription, ask) {
   //alert("ROSTERIZE: " + buddy + " with subscription " + subscription + " and type " + ntype);
   if ((subscription == "both" || subscription == "to") || (ask == "subscribe" && (subscription == "none" || subscription == "from"))) {
 
-    if (ask == "subscribe") {
-      var subscription_status = "pending"
-    }
-    else {
-      var subscription_status = "in roster"
-    }
-
     if ($('#buddy_' + $.escape(buddy)).length == 0) {
-      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='unreaded'></span> <span class='presence'>offline</span> <span class='subscription_status'>" + subscription_status + "</span> <a onclick=\"openChatWindow('" +  buddy + "');\" href='#'>chat</a> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
+      $('#roster').append("<li class='contact' id='buddy_" + buddy + "'>" + buddy + " <span class='unreaded'></span> <span class='presence'>offline</span> <a onclick=\"openChatWindow('" +  buddy + "');\" href='#'>chat</a> <a onclick=\"onRemoveContact('" + buddy + "/Orbited', '" + buddy + "');\" href='#'>remove</a></li>");
 
       $.getJSON('chat_messages/unreaded_messages_count_by_buddy.json', 'buddy=' + buddy, function(data) {
             $('#buddy_' + $.escape(buddy) + ' span.unreaded').append(data);
           });
     }
-    else {
-      $('#buddy_' + $.escape(buddy) + ' span.subscription_status').empty().append(subscription_status);
-    }
-
   }
   else if (ntype == "set" && ! ask && (subscription == "from" || subscription == "none")) {
     $('#buddy_' + $.escape(buddy)).remove();
