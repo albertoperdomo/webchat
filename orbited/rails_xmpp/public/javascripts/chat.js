@@ -130,6 +130,13 @@ function onAddContact(jid) {
 
 /** Called when the user clicks the user list's remove contact button */
 function onRemoveContact(jid, username) {
+  if ($('#chat_message_recipient_id').val() == username) {
+    $('#chat_box').empty();
+    $('#chat_message_recipient_id').val('');
+    $('#chat_message_submit').attr('disabled', true);
+    $('#new_message').addClass('hidden');
+  }
+
   xmpp.unsubscribe(jid);
   //alert("User " + username + " removed!");
 }
@@ -169,6 +176,10 @@ function openChatWindow(buddy) {
         $('#chat_' + $.escape(buddy)).append("<p class=" + msg_status + "><span class='" + sender_class + "'>" + sender + ":</span> " + data.chat_messages[i].chat_message.content);
       }
   });
+
+  if ($('#new_message.hidden')) {
+    $('#new_message').removeClass('hidden');
+  }
 
   /* Set recipient_id in send_message form */
   $('#chat_message_recipient_id').val(buddy);
