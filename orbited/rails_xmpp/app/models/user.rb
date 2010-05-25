@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
 
     time_ago = Time.now - last_request_at
     time_ago_in_words = case time_ago
-      when 10*60...60*60 then "#{time_ago.div(60)} minutes ago"
+      when 10*60...60*60 then return "Away" #"#{time_ago.div(60)} minutes ago"
       when 60*60...24*60*60 then "#{time_ago.div(60*60)} hours ago"
       when 24*60*60...48*60*60 then "yesterday"
       when 48*60*60...30*24*60*60 then I18n.l last_request_at.to_date, :format => :long
