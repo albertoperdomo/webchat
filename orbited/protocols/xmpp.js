@@ -260,7 +260,7 @@ XMPPClient = function() {
     var setDomain = function(evt) {
         var s = Orbited.utf8.decode(evt);
 //        console.log('setDomain received: '+s);
-        if (s.indexOf("host-unknown") != -1) {
+        if (s[0].indexOf("host-unknown") != -1) {
             if (failure) {failure();}
         }
         else {
@@ -270,7 +270,7 @@ XMPPClient = function() {
     var regUser = function(evt) {
         var s = Orbited.utf8.decode(evt);
 //        console.log('regUser received: '+s);
-        if (s.indexOf("conflict") != -1) {
+        if (s[0].indexOf("conflict") != -1) {
             if (failure) {failure();}
         }
         else {
@@ -281,7 +281,7 @@ XMPPClient = function() {
     var setUser = function(evt) {
         var s = Orbited.utf8.decode(evt);
 //        console.log('setUser received: '+s);
-        if (s.indexOf("not-authorized") != -1) {
+        if (s[0].indexOf("not-authorized") != -1) {
             if (failure) {failure();}
         }
         else {

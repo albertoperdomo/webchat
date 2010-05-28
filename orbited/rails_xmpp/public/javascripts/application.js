@@ -11,6 +11,18 @@ jQuery.fn.submitWithAjax = function() {
   })
 };
 
+// Add indexOf support to IE6+
+if (!Array.indexOf) {
+  Array.prototype.indexOf = function(obj) {
+    for (var i = 0; i < this.length; i++) {
+      if (this[i] == obj) {
+        return i;
+      }
+    }
+    return -1;
+  }
+}
+
 //$(document).ready(function() {
 //  $("#new_chat_contact").submitWithAjax();
 //  $("#send_chat_message").submitWithAjax();
